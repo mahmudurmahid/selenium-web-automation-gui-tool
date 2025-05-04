@@ -11,6 +11,11 @@ load_dotenv()
 # Set required selenium options and service requirements, load webpage
 chrome_options = Options()
 chrome_options.add_argument("--disable-search-engine-choice-screen")
+
+download_path = os.getcwd() # Set the download path to the current working directory
+prefs = {'download.default_directory': download_path}
+chrome_options.add_experimental_option('prefs', prefs)
+
 service = Service("chromedriver-mac-x64/chromedriver")
 driver = webdriver.Chrome(options=chrome_options, service=service)
 driver.get("https://demoqa.com/login") # Load the webpage
@@ -50,6 +55,17 @@ email_field.send_keys(os.getenv("EMAIL"))
 current_address_field.send_keys(os.getenv("CURRENT_ADDRESS"))
 permanent_address_field.send_keys(os.getenv("PERMANENT_ADDRESS"))
 driver.execute_script("arguments[0].click();", submit_button)
+
+"""
+TASK C: AUTOMATE DOWNLOADING A FILE
+"""
+# Locate the Elements Dropdown in Sidebar Menu and Download option
+upload_download = WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.ID, 'item-7')))
+upload_download.click()
+download_button = driver.find_element(By.ID, 'downloadButton')
+driver.execute_script("arguments[0].click();", download_button)
+
+
 
 # Quit the browser after pressing Enter
 input("Press Enter to close the browser")
