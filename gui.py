@@ -63,7 +63,6 @@ class App:
         messagebox.showinfo("Browser closed", "Information submitted successfully")
 
 
-
 root = tk.Tk()
 app = App(root)
 root.mainloop()
