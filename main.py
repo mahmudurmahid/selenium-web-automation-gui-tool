@@ -24,7 +24,6 @@ class WebAutomation:
 
         service = Service("chromedriver-mac-x64/chromedriver")
         self.driver = webdriver.Chrome(options=chrome_options, service=service)
-        
 
     def login(self, username, password):
         """
