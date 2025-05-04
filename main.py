@@ -79,7 +79,7 @@ class WebAutomation:
         """
         Quit the browser after pressing Enter
         """
-        input("Press Enter to close the browser")
+        # input("Press Enter to close the browser")
         self.driver.quit()
 
 if __name__ == "__main__":

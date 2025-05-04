@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import messagebox
 from main import WebAutomation
 
 
@@ -15,7 +16,7 @@ class App:
         self.username_entry.grid(row=0, column=1, sticky="ew")
 
         tk.Label(self.login_frame, text="Password").grid(row=1, column=0, sticky="w")
-        self.password_entry = tk.Entry(self.login_frame)
+        self.password_entry = tk.Entry(self.login_frame, show="*")
         self.password_entry.grid(row=1, column=1, sticky="ew")
 
         # Form submission frame
@@ -43,13 +44,23 @@ class App:
         self.button_frame.pack(padx=10, pady=10)
 
         tk.Button(self.button_frame, text="Submit", command=self.submit_info).grid(row=0, column=0, padx=5)
-        tk.Button(self.button_frame, text="Close Browser", command=self.close_gui).grid(row=0, column=1, padx=5)
+        tk.Button(self.button_frame, text="Close Browser", command=self.close_app).grid(row=0, column=1, padx=5)
 
     def submit_info(self):
-        pass
+        username = self.username_entry.get()
+        password = self.password_entry.get()
+        full_name = self.full_name_entry.get()
+        email = self.email_entry.get()
+        current_address = self.current_address_entry.get()
+        permanent_address = self.permanent_address_entry.get()
 
-    def close_gui(self):
-        pass
+        self.web_automation = WebAutomation() # Initialize WebAutomation class
+        self.web_automation.login(username, password)
+        self.web_automation.fill_form(full_name, email, current_address, permanent_address)
+
+    def close_app(self):
+        self.web_automation.close_browser()
+        messagebox.showinfo("Browser closed", "Information submitted successfully")
 
 
 
